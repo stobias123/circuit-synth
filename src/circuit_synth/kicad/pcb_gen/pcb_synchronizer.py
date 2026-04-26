@@ -13,11 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import kicad_sch_api as ksa
-
-from circuit_synth.pcb import PCBNotAvailableError
-
-# PCB features require kicad-pcb-api which is not included in open source version
-PCBBoard = None
+from kicad_pcb_api import PCBBoard
 
 logger = logging.getLogger(__name__)
 
@@ -61,19 +57,12 @@ class PCBSynchronizer:
             pcb_path: Path to the KiCad PCB file
             project_dir: Directory containing the KiCad project
             project_name: Name of the project
-
-        Raises:
-            PCBNotAvailableError: PCB features require licensing
         """
-        raise PCBNotAvailableError(
-            "PCB synchronization features are not included in this version. "
-            "Contact Circuit Synth for licensing information."
-        )
         self.pcb_path = Path(pcb_path)
         self.project_dir = Path(project_dir)
         self.project_name = project_name
 
-        logger.info(f"Initializing PCBSynchronizer")
+        logger.info(f"🔍 Initializing PCBSynchronizer")
         logger.debug(f"  PCB path: {self.pcb_path}")
         logger.debug(f"  Project dir: {self.project_dir}")
         logger.debug(f"  Project name: {self.project_name}")

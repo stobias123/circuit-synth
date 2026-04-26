@@ -39,6 +39,7 @@ dependencies = [
     "cachetools>=5.3.0",
     # KiCad API integration
     "kicad-sch-api>=0.5.5",
+    "kicad-pcb-api>=0.1.0",
     "packaging>=21.0",
     # Additional data processing
     "sexpdata>=0.0.3",
@@ -232,6 +233,9 @@ asyncio_default_fixture_loop_scope = "function"
 env = [
     "KICAD_SYMBOL_DIR=tests/test_data/kicad_symbols",
 ]
+
+[tool.uv.sources]
+kicad-pcb-api = { path = "submodules/kicad-pcb-api", editable = true }
 
 [tool.uv.workspace]
 members = [

@@ -15,18 +15,14 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import kicad_sch_api as ksa
+from kicad_pcb_api import PCBBoard
+from kicad_pcb_api.core.types import Net
 
 from circuit_synth.core.circuit import Circuit
-from circuit_synth.pcb import PCBNotAvailableError
 
-# PCB features require kicad-pcb-api which is not included in open source version
-PCBBoard = None
-Net = None
-
-try:
-    from circuit_synth.pcb.simple_ratsnest import add_ratsnest_to_pcb
-except ImportError:
-    add_ratsnest_to_pcb = None
+# Removed duplicate PCB API imports - using kicad-pcb-api
+# TODO: Port simple_ratsnest to kicad-pcb-api or keep as circuit-synth extension
+from circuit_synth.pcb.simple_ratsnest import add_ratsnest_to_pcb
 
 logger = logging.getLogger(__name__)
 
@@ -46,14 +42,7 @@ class PCBGenerator:
         Args:
             project_dir: Directory containing the KiCad project
             project_name: Name of the project
-
-        Raises:
-            PCBNotAvailableError: PCB features require licensing
         """
-        raise PCBNotAvailableError(
-            "PCB generation features are not included in this version. "
-            "Contact Circuit Synth for licensing information."
-        )
         self.project_dir = Path(project_dir)
         self.project_name = project_name
         self.pcb_path = self.project_dir / f"{project_name}.kicad_pcb"
